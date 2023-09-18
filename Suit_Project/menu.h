@@ -12,6 +12,6 @@ typedef enum {
 extern int main_menu();
 extern int search_season_suit_menu();
 extern int manager_menu();
-extern int input_only_num();
+int input_only_num();
 
 #endif

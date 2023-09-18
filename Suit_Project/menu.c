@@ -15,7 +15,6 @@ int main_menu()
 	printf(" 1. 계절별 정장 목록\n");
 	printf(" 2. 관리자 메뉴\n");
 	printf(" 3. 종료\n");
-	//int menu;
 	menu = input_only_num();
 	return menu;
 }
@@ -38,7 +37,7 @@ int search_season_suit_menu()
 	printf("┃  ♠ Season별 정장 선택 ♠ ┃\n");
 	printf("┃                           ┃\n");
 	printf("┗┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┻┛┻┛\n");
-	printf("1. 봄 / 가을 용 정장\n");
+	printf("1. 봄 / 가을 용 정장\n"); // 상의 하의로 분류
 	printf("2. 여름 용 정장\n");
 	printf("3. 겨울 용 정장\n");
 	printf("4. 메인 메뉴 돌아가기\n");
@@ -50,20 +49,20 @@ int search_season_suit_menu()
 // 숫자만 입력하게 
 int input_only_num()
 {
-	int num;
+	int num = 0;
 	while (1) {
 		//
-		printf("※ 메뉴는 숫자만 선택하여 주세요!!! ※\n");
-		printf("메뉴를 선택해주세요 : ");
+		printf("※ 숫자(양의 정수)만 선택하여 주세요!!! ※\n");
+		printf("숫자(양의 정수)를 입력해주세요 : ");
 		scanf("%d", &num);
-
-		//printf("%d\n", num);
-		//system("cls");
-		while (getchar() != '\n'); // 숫자외의 값을 입력하면 무한 반복
-		if (num == 1) {
+ 
+		if (num > 0) {
 			break;
+		} else {
+			while (getchar() != '\n'); // 숫자외의 값을 입력하면 무한 반복
 		}
-		break;
+		//printf("ㅁㅁㅁㅁㅁㅁ\n");
+		//system("cls");				
 	}
 	return num;
 }

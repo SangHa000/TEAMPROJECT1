@@ -6,6 +6,7 @@
 #include <stdlib.h>	// exit()
 #include "intro.h" 
 #include "menu.h"
+#include "data.h"
 
 void main()
 {
@@ -31,9 +32,11 @@ void main()
 		// 메인 메뉴
 		num = main_menu();
 		switch (num) {
-		case FIRST_NUM:  // 계절별 정장 목록 선택할 수 있게
-			search_season_suit_menu();
+		case FIRST_NUM: {  // 계절별 정장 목록 선택할 수 있게
+			int choiceSeasonNum = search_season_suit_menu();
+			choice_suit_season(choiceSeasonNum);
 			break;
+		}
 		case SECOND_NUM:  // 관리자 메뉴
 			manager_menu();
 			break;
@@ -44,6 +47,6 @@ void main()
 			printf("잘못된 메뉴 선택!!\n");
 			system("pause");
 		}
-		system("cls");
+		//system("cls");
 	}
 }
