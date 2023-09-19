@@ -5,22 +5,40 @@
 #define SUMMER_SUIT "summer_suit.txt"
 #define WINTER_SUIT "winter_suit.txt"
 
-typedef struct _SUIT {  // 하위 구조체
-	char blazer[30];      //정장 상의
-	char dress_pants[30]; // 정장 하의	
+typedef struct _MANAGER {
+	char id[10];      //정장 상의
+	char passward[10]; // 정장 하의	
+} MANAGER;
+
+typedef struct _PRICE {
+	int blazerPrice;      //정장 상의 가격
+	int dressPantsPrice; // 정장 하의 가격
+} PRICE;
+
+typedef struct _SUIT { 
+	char blazer[50];      //정장 상의 모델명
+	char dressPants[50]; // 정장 하의 모델명	
+	PRICE price;
+	MANAGER manager;
 } SUIT;
 
-typedef struct _SEASON {   // 계절 선택 상위 구조체
+typedef struct _CUSTOMER {
+	SUIT suit;
+	char custName[10];
+} CUSTOMER;
+
+typedef struct _SEASON {   
 	char springAndAutumn[10];
 	char summer[10];
 	char winter[10];
-	SUIT suit;
+	CUSTOMER customer;	
 } SEASON;
 
-extern void suit_file_write(char mode, int len, SUIT suit_[]);
+extern void suit_file_write(char mode, int len, SEASON season[]);
 extern void get_suit_data_spring_autumn();
 extern void get_suit_data_summer();
 extern void get_suit_data_winter();
-
+void register_manage();
+int idPassCompare(char inputId[], char inputPass[]);
 
 #endif

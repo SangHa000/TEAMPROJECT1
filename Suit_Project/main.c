@@ -7,6 +7,7 @@
 #include "intro.h" 
 #include "menu.h"
 #include "data.h"
+#include "file.h"
 
 void main()
 {
@@ -37,9 +38,11 @@ void main()
 			choice_suit_season(choiceSeasonNum);
 			break;
 		}
-		case SECOND_NUM:  // 관리자 메뉴
-			manager_menu();
+		case SECOND_NUM:   // 관리자 메뉴
+			//register_manage(); // 프로그램 관리자 새로 등록하는곳 프로그램 배포할 때 해당 메소드 제거해야함
+			check_management();
 			break;
+		
 		case THIRD_NUM:  // 프로그램 종료
 			printf("프로그램 종료!\n");
 			exit(0);
@@ -47,6 +50,6 @@ void main()
 			printf("잘못된 메뉴 선택!!\n");
 			system("pause");
 		}
-		//system("cls");
+		system("cls");
 	}
 }
