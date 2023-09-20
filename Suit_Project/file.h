@@ -10,15 +10,17 @@ typedef struct _MANAGER {
 	char passward[10]; // 정장 하의	
 } MANAGER;
 
-typedef struct _PRICE {
+typedef struct _TAG {
 	int blazerPrice;      //정장 상의 가격
 	int dressPantsPrice; // 정장 하의 가격
-} PRICE;
+	int blazerCount; 
+	int dressPantsCount;
+} TAG;
 
 typedef struct _SUIT { 
 	char blazer[50];      //정장 상의 모델명
 	char dressPants[50]; // 정장 하의 모델명	
-	PRICE price;
+	TAG tag;
 	MANAGER manager;
 } SUIT;
 

@@ -1,8 +1,3 @@
-// 계절을 선택하고 상의를 구매할 지 하의를 구매할 지 
-// 선택하면 텍스파일에서 목록을 가져옴
-// 사용자가 메인메뉴로 돌아가기 선택을 할 수도 있음
-
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h> // exit(), system() 메소드사용
@@ -18,8 +13,6 @@ const char summerSuitFile[] = "D:\\work_c\\Suit_Project\\summer_suit.bin";
 const char winterSuitFile[] = "D:\\work_c\\Suit_Project\\winter_suit.bin";
 const char managementFile[] = "D:\\work_c\\Suit_Project\\management.bin";
 
-
-
 // 봄 가을 수트 정보 가져옴
 void get_suit_data_spring_autumn()
 {
@@ -29,40 +22,86 @@ void get_suit_data_spring_autumn()
 		printf(FILE_READ_ERR);
 		return;
 	}
-	SEASON season = { 0 }; // 파일안에 있는 구조체 한 덩어리
 
-	
-	//int count = 1;
+	SEASON season = { 0 }; // 파일안에 있는 구조체 한 덩어리	
+	int count = 1;
 	int check = 0;
 	while (fread(&season, sizeof(season), 1, fp) == 1) {
+		printf("재고 번호 %d\n", count++);
 		printf("정장 상의 : %s\n", season.customer.suit.blazer);
 		printf("정장 하의 : %s\n", season.customer.suit.dressPants);
+		printf("구매 가능한 상의 수량 : %d개\n", season.customer.suit.tag.blazerCount);
+		printf("상의 가격 %d ￦\n", season.customer.suit.tag.blazerPrice);
+		printf("구매 가능한 하의 수량 : %d개\n", season.customer.suit.tag.dressPantsCount);
+		printf("하의 가격 %d ￦\n", season.customer.suit.tag.dressPantsPrice);
 		printf("==========================\n");
 		check = 1;
 	}
-
-
 	fclose(fp);
 	if (check == 0) {
 		printf(NO_READ_DATA);
 	}
 }
 
+// 여름 수트 정보 가져옴
 void get_suit_data_summer()
 {
+	// 데이터가 없으면 "데이터가 존재하지 않습니다" 에러 메시지를 출력!
+	FILE* fp = fopen(summerSuitFile, "rb");  // 구조체 사용할 때는 b 옵션
+	if (fp == NULL) {
+		printf(FILE_READ_ERR);
+		return;
+	}
 
-
-
+	SEASON season = { 0 }; // 파일안에 있는 구조체 한 덩어리
+	int count = 1;
+	int check = 0;
+	while (fread(&season, sizeof(season), 1, fp) == 1) {
+		printf("재고 번호 %d\n", count++);
+		printf("정장 상의 : %s\n", season.customer.suit.blazer);
+		printf("정장 하의 : %s\n", season.customer.suit.dressPants);
+		printf("구매 가능한 상의 수량 : %d개\n", season.customer.suit.tag.blazerCount);
+		printf("상의 가격 %d ￦\n", season.customer.suit.tag.blazerPrice);
+		printf("구매 가능한 하의 수량 : %d개\n", season.customer.suit.tag.dressPantsCount);
+		printf("하의 가격 %d ￦\n", season.customer.suit.tag.dressPantsPrice);
+		printf("==========================\n");
+		check = 1;
+	}
+	fclose(fp);
+	if (check == 0) {
+		printf(NO_READ_DATA);
+	}
 }
 
+// 겨울 수트 정보 가져옴
 void get_suit_data_winter()
 {
+	// 데이터가 없으면 "데이터가 존재하지 않습니다" 에러 메시지를 출력!
+	FILE* fp = fopen(winterSuitFile, "rb");  // 구조체 사용할 때는 b 옵션
+	if (fp == NULL) {
+		printf(FILE_READ_ERR);
+		return;
+	}
+	SEASON season = { 0 }; // 파일안에 있는 구조체 한 덩어리
 
-
-
+	int count = 1;
+	int check = 0;
+	while (fread(&season, sizeof(season), 1, fp) == 1) {
+		printf("재고 번호 %d\n", count++);
+		printf("정장 상의 : %s\n", season.customer.suit.blazer);
+		printf("정장 하의 : %s\n", season.customer.suit.dressPants);
+		printf("구매 가능한 상의 수량 : %d개\n", season.customer.suit.tag.blazerCount);
+		printf("상의 가격 %d ￦\n", season.customer.suit.tag.blazerPrice);
+		printf("구매 가능한 하의 수량 : %d개\n", season.customer.suit.tag.dressPantsCount);
+		printf("하의 가격 %d ￦\n", season.customer.suit.tag.dressPantsPrice);
+		printf("==========================\n");
+		check = 1;
+	}
+	fclose(fp);
+	if (check == 0) {
+		printf(NO_READ_DATA);
+	}
 }
-
-
 
 //관리자로 부터 파일에 재고를 채워 넣는 메소드
 void suit_file_write(char mode, int len, SEASON season[])
@@ -74,8 +113,10 @@ void suit_file_write(char mode, int len, SEASON season[])
 	printf("1.봄, 가을 정장 채우기\n");
 	printf("2.여름 정장 채우기\n");
 	printf("3.겨울 정장 채우기\n");
+	
 	num = input_only_num();
-
+	printf("재고를 수정하는 중 입니다......\n");
+	Sleep(2000);
 	if (num == FIRST_NUM) { // 봄, 가을 정장 채우기
 		
 		if (mode == 'w') {
@@ -90,10 +131,8 @@ void suit_file_write(char mode, int len, SEASON season[])
 		}
 		for (int i = 0; i < len; i++) {
 			fwrite(&season[i], sizeof(SEASON), 1, fp);
-		}
-		
+		}		
 	}
-
 	else if (num == SECOND_NUM) { // 여름 정장 채우기
 		if (mode == 'w') {
 			fp = fopen(summerSuitFile, "wb");  // 재고 새로 채우기
@@ -107,8 +146,7 @@ void suit_file_write(char mode, int len, SEASON season[])
 		}
 		for (int i = 0; i < len; i++) {
 			fwrite(&season[i], sizeof(SEASON), 1, fp);
-		}
-		
+		}	
 	}
 	else if (num == THIRD_NUM) { // 겨울 정장 채우기
 		if (mode == 'w') {
@@ -123,8 +161,7 @@ void suit_file_write(char mode, int len, SEASON season[])
 		}
 		for (int i = 0; i < len; i++) {
 			fwrite(&season[i], sizeof(SEASON), 1, fp);   // 같은 부분 중복 함수로 빼낼 수 있으면 빼내기
-		}
-		
+		}	
 	}
 	fclose(fp);	
 }
@@ -159,7 +196,6 @@ int idPassCompare(char inputId[], char inputPass[])
 
 	MANAGER manager = { 0 };
 	int check = 0;
-
 	while (fread(&manager, sizeof(manager), 1, fp) == 1) {
 		if ( strcmp(manager.id, inputId) == 0 && strcmp(manager.passward, inputPass) == 0 ){ 
 			check = 1;
