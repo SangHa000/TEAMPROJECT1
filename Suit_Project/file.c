@@ -103,9 +103,168 @@ void get_suit_data_winter()
 	}
 }
 
+//상의만
+// 구매 수량을 결정하면 진행되는 메소드 
+// 수정 예정 (파일이름 넘겨받아서 파일 이름만 넘겨받아서)
+void suit_shirts_puchse_file(int quantity, char suitModel[], char fileName[])
+{
+	FILE* fp = fopen(fileName, "rb");
+	if (fp == NULL) {
+		printf(FILE_READ_ERR);
+		return;
+	}
+	SEASON season = { 0 };
+	SEASON custData[100] = { 0 };
+	int check = 0;
+	int i = 0;
+
+	while (fread(&season, sizeof(season), 1, fp) == 1) {
+		if (quantity > season.customer.suit.tag.blazerCount || season.customer.suit.tag.blazerCount == 0) {
+			printf("현재 재고 수량이 부족합니다.");
+			check = 1;
+		}
+		else if (strcmp(season.customer.suit.blazer, suitModel) == 0) {
+			custData[i].customer.suit.tag.blazerCount = season.customer.suit.tag.blazerCount -= quantity;
+			if (custData[i].customer.suit.tag.blazerCount > 0) {
+				check = 1;
+			}		
+		}
+		else {
+			custData[i].customer.suit.tag.blazerCount = season.customer.suit.tag.blazerCount;
+		}
+		strcpy(custData[i].customer.suit.blazer, season.customer.suit.blazer);
+		strcpy(custData[i].customer.suit.dressPants, season.customer.suit.dressPants);
+		custData[i].customer.suit.tag.blazerCount = season.customer.suit.tag.blazerCount;
+		custData[i].customer.suit.tag.blazerPrice = season.customer.suit.tag.blazerPrice;
+		custData[i].customer.suit.tag.dressPantsCount = season.customer.suit.tag.dressPantsCount;
+		custData[i].customer.suit.tag.dressPantsPrice = season.customer.suit.tag.dressPantsPrice;
+		i++;	
+	}
+	fclose(fp);
+
+	int size = i;
+	if (check == 0) {
+		printf("모델명을 잘못 입력하였습니다.\n");
+		return; // void 함수 종료
+	}
+
+	FILE* fp2 = fopen(fileName, "wb");
+	if (fp2 == NULL) {
+		printf(FILE_READ_ERR);
+		return;
+	}
+	for (int i = 0; i < size; i++) {
+		//printf("del_arr[%d]:%d\n", i, del_arr[i].id);
+		fwrite(&custData[i], sizeof(SEASON), 1, fp2);
+	}
+	fclose(fp2);
+}
+
+//하의만
+// 구매 수량을 결정하면 진행되는 메소드 
+// 수정 예정 (파일이름 넘겨받아서 파일 이름만 넘겨받아서)
+void suit_pants_puchse_file(int quantity, char suitModel[], char fileName[])
+{
+	FILE* fp = fopen(fileName, "rb");
+	if (fp == NULL) {
+		printf(FILE_READ_ERR);
+		return;
+	}
+	SEASON season = { 0 };
+	SEASON custData[100] = { 0 };
+	int check = 0;
+	int i = 0;
+
+	while (fread(&season, sizeof(season), 1, fp) == 1) {
+		if (quantity > season.customer.suit.tag.dressPantsCount || season.customer.suit.tag.dressPantsCount == 0) {
+			printf("현재 재고 수량이 부족합니다.");
+			check = 1;
+		}
+		else if (strcmp(season.customer.suit.dressPants, suitModel) == 0) {
+			custData[i].customer.suit.tag.dressPantsCount = season.customer.suit.tag.dressPantsCount -= quantity;
+			if (custData[i].customer.suit.tag.dressPantsCount > 0) {
+				check = 1;
+			}
+		}
+		else {
+			custData[i].customer.suit.tag.dressPantsCount = season.customer.suit.tag.dressPantsCount;
+		}
+		strcpy(custData[i].customer.suit.blazer, season.customer.suit.blazer);
+		strcpy(custData[i].customer.suit.dressPants, season.customer.suit.dressPants);
+		custData[i].customer.suit.tag.blazerCount = season.customer.suit.tag.blazerCount;
+		custData[i].customer.suit.tag.blazerPrice = season.customer.suit.tag.blazerPrice;
+		custData[i].customer.suit.tag.dressPantsCount = season.customer.suit.tag.dressPantsCount;
+		custData[i].customer.suit.tag.dressPantsPrice = season.customer.suit.tag.dressPantsPrice;
+		i++;
+	}
+	fclose(fp);
+
+	int size = i;
+	if (check == 0) {
+		printf("모델명을 잘못 입력하였습니다.\n");
+		return; // void 함수 종료
+	}
+
+	FILE* fp2 = fopen(fileName, "wb");
+	if (fp2 == NULL) {
+		printf(FILE_READ_ERR);
+		return;
+	}
+	for (int i = 0; i < size; i++) {
+		//printf("del_arr[%d]:%d\n", i, del_arr[i].id);
+		fwrite(&custData[i], sizeof(SEASON), 1, fp2);
+	}
+	fclose(fp2);
+}
+
+
+int deposit_file(int money, char suitModel[], char fileName[])
+{
+	int resiveMoney = 0;
+	//int* pResiveMoney = NULL;
+	int check = 0;
+
+	FILE* fp = fopen(fileName, "rb");
+	if (fp == NULL) {
+		printf(FILE_READ_ERR);
+		return;
+	}
+	SEASON season = { 0 };
+	while (fread(&season, sizeof(season), 1, fp) == 1) {
+
+		if (strcmp(season.customer.suit.blazer, suitModel) == 0) {
+			resiveMoney = money - season.customer.suit.tag.blazerPrice;
+
+			if (resiveMoney < 0) {
+				printf("잔액이 부족합니다.\n");
+			}
+			else {
+				printf("금액이 정상적으로 입금되었습니다.\n");
+				printf("%d원이 반환되었습니다.\n", resiveMoney);
+				printf("구매해주셔서 감사합니다.\n");
+				check = FIRST_NUM;
+			}
+		}
+
+	}
+	//if (check != FIRST_NUM) {
+	//	
+	//}
+
+
+	return check;
+	fclose(fp);
+}
+
+
+
+
+
+
+
 //관리자로 부터 파일에 재고를 채워 넣는 메소드
 void suit_file_write(char mode, int len, SEASON season[])
-{	
+{
 	FILE* fp = NULL;
 
 	int num = 0;
@@ -113,12 +272,12 @@ void suit_file_write(char mode, int len, SEASON season[])
 	printf("1.봄, 가을 정장 채우기\n");
 	printf("2.여름 정장 채우기\n");
 	printf("3.겨울 정장 채우기\n");
-	
+
 	num = input_only_num();
 	printf("재고를 수정하는 중 입니다......\n");
 	Sleep(2000);
 	if (num == FIRST_NUM) { // 봄, 가을 정장 채우기
-		
+
 		if (mode == 'w') {
 			fp = fopen(springAutumnSuitFile, "wb");  // 재고 새로 채우기
 		}
@@ -131,7 +290,7 @@ void suit_file_write(char mode, int len, SEASON season[])
 		}
 		for (int i = 0; i < len; i++) {
 			fwrite(&season[i], sizeof(SEASON), 1, fp);
-		}		
+		}
 	}
 	else if (num == SECOND_NUM) { // 여름 정장 채우기
 		if (mode == 'w') {
@@ -146,7 +305,7 @@ void suit_file_write(char mode, int len, SEASON season[])
 		}
 		for (int i = 0; i < len; i++) {
 			fwrite(&season[i], sizeof(SEASON), 1, fp);
-		}	
+		}
 	}
 	else if (num == THIRD_NUM) { // 겨울 정장 채우기
 		if (mode == 'w') {
@@ -161,9 +320,9 @@ void suit_file_write(char mode, int len, SEASON season[])
 		}
 		for (int i = 0; i < len; i++) {
 			fwrite(&season[i], sizeof(SEASON), 1, fp);   // 같은 부분 중복 함수로 빼낼 수 있으면 빼내기
-		}	
+		}
 	}
-	fclose(fp);	
+	fclose(fp);
 }
 
 // 프로그램 처음실행할 때 관리자 등록 

@@ -15,5 +15,6 @@ extern int manager_menu();
 int input_only_num();
 void check_Y_or_N_menu();
 void ask_management_menu();
+void purchase_suit_menu();
 
 #endif

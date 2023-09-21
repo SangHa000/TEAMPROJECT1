@@ -9,4 +9,8 @@ void restock_summer_suit();
 void restock_winter_suit();
 void set_suit();
 
+
+void puchase_suit(int cNum);
+void extradite(char fileName[]);
+
 #endif

@@ -3,6 +3,7 @@
 #include <stdlib.h>	// exit(), system() 메소드사용
 #include "menu.h"
 #include "intro.h"
+#include "msg.h"
 
 // 메인 메뉴
 int main_menu()
@@ -30,6 +31,7 @@ int manager_menu()
 	printf("1. 봄 / 가을 용 정장 재고 채우기\n");
 	printf("2. 여름 용 정장 재고 채우기\n");
 	printf("3. 겨울 용 정장 재고 채우기\n");
+	printf("4."RETURN_MAIN);
 
 	// 나중에 메뉴 추가
 	//printf("1. 접속한 고객의 구매 목록 확인\n");
@@ -51,6 +53,7 @@ int search_season_suit_menu()
 	printf("1. 봄 / 가을 용 정장\n"); // 상의 하의로 분류
 	printf("2. 여름 용 정장\n");
 	printf("3. 겨울 용 정장\n");
+	printf("4."RETURN_MAIN);
 	int menu;
 	menu = input_only_num();
 	return menu;
@@ -63,15 +66,15 @@ int input_only_num()
 	int num = 0;
 	while (1) {	
 		font_color(LIGHT_RED);
-		printf("※ 숫자(양의 정수)만 선택하여 주세요!!! ※\n");
+		printf("※ 숫자(양수)만 선택하여 주세요!!! ※\n");
 		font_color(LIGHT_GRAY);
-		printf("숫자(양의 정수)를 입력해주세요 : ");
+		printf("숫자(양수)를 입력해주세요 : ");
 		//char input = getchar();
 		//scanf("%d", &num);
 		//printf(input);
 		scanf("%d", &num);
 
-		if (num > 0 && num < 6) {
+		if (num > 0) {
 			break;
 		}
 		else {
@@ -93,6 +96,16 @@ int input_only_num()
 	//return returnNum;
 }
 
+void purchase_suit_menu()
+{
+	font_color(LIGHT_YELLOW);
+	printf("정장을 구매하시겠습니까?\n");
+	printf("▷ S - 상의 구매를 진행 합니다.\n");
+	printf("▷ P - 하의 구매를 진행 합니다.\n");
+	printf("▷ N -정장목록으로 돌아갑니다.\n");
+	font_color(LIGHT_GRAY);
+}
+
 void check_Y_or_N_menu()
 {
 	font_color(LIGHT_YELLOW);
@@ -107,6 +120,6 @@ void ask_management_menu()
 {
 	font_color(LIGHT_YELLOW);
 	printf("▷ Y - 재고를 채워 넣으시겠습니까?\n");
-	printf("▷ N - 메인화면으로 빠져 나갑니다.\n");
+	printf("▷ N - 이전화면으로 빠져 나갑니다.\n");
 	font_color(LIGHT_GRAY);
 }

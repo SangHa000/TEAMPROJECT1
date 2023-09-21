@@ -25,15 +25,24 @@ void main()
 	//system("cls");
 	font_color(LIGHT_GRAY);
 	set_cursor_type(NORMAL_CURSOR);
+	system("mode con cols=75 lines=100");
 
 	while (1) {
 		// 메인 메뉴
 		num = main_menu();
 		switch (num) {
 		case FIRST_NUM: {  // 계절별 정장 목록 선택할 수 있게
-			system("cls");
-			int choiceSeasonNum = search_season_suit_menu();
-			choice_suit_season(choiceSeasonNum);
+			while (1) {
+				system("cls");
+				int choiceSeasonNum = search_season_suit_menu();
+				if (choiceSeasonNum >= FIRST_NUM && choiceSeasonNum <= THIRD_NUM) {
+					choice_suit_season(choiceSeasonNum);
+					//break;
+				}
+				else if (choiceSeasonNum == FOURTH_NUM) {
+					break;
+				}
+			}
 			break;
 		}
 		case SECOND_NUM:   // 관리자 메뉴
