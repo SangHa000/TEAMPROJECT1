@@ -221,7 +221,6 @@ void suit_pants_puchse_file(int quantity, char suitModel[], char fileName[])
 int deposit_file(int money, char suitModel[], char fileName[])
 {
 	int resiveMoney = 0;
-	//int* pResiveMoney = NULL;
 	int check = 0;
 
 	FILE* fp = fopen(fileName, "rb");
@@ -247,20 +246,10 @@ int deposit_file(int money, char suitModel[], char fileName[])
 		}
 
 	}
-	//if (check != FIRST_NUM) {
-	//	
-	//}
-
 
 	return check;
 	fclose(fp);
 }
-
-
-
-
-
-
 
 //관리자로 부터 파일에 재고를 채워 넣는 메소드
 void suit_file_write(char mode, int len, SEASON season[])

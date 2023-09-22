@@ -24,11 +24,6 @@ void choice_suit_season(int choiceSeasonNum)
 		printf("구매할 수 있는 (봄 · 가을)용 정장 목록\n");
 		get_suit_data_spring_autumn();
 		puchase_suit(cNum);
-
-		//printf(RETURN_MAIN);
-		//Sleep(1000);
-		// 구매 수량 선택하고 구매한 고객이름과 돈입금하면 구매해주셔서 감사합니다. 
-		// 고객 이름과 고객이 구매한 금액은 관리자 파일에 전송
 		break;
 	}
 	case SECOND_NUM: {
@@ -37,8 +32,6 @@ void choice_suit_season(int choiceSeasonNum)
 		printf("구매할 수 있는 여름용 정장 목록\n");
 		get_suit_data_summer();
 		puchase_suit(cNum);
-		//printf(RETURN_MAIN);
-		//Sleep(1000);
 		break;
 	}
 	case THIRD_NUM: {
@@ -47,123 +40,42 @@ void choice_suit_season(int choiceSeasonNum)
 		printf("구매할 수 있는 겨울용 정장 목록");
 		get_suit_data_winter();
 		puchase_suit(cNum);
-
-		//printf(RETURN_MAIN);
-		//Sleep(1000);
 		break;
 	}
 	case FOURTH_NUM:
-		// 파일에서 불러온 데이터(겨울용 정장)를 보여준다. 
-
 		printf(RETURN_MAIN);
-
 		break;
 	}
-	//}
-
 	system("pause");
 }
 
 //구매하는 메소드
 void puchase_suit(int cNum)
 {
-	//int quantity = 0;
-	//char suitModel[50];
-	//int moneyBalance = 0;
-	//int receiveNum = 0;
+
 	char fileName[100];
 	purchase_suit_menu();
 
-	//while (getchar() != '\n') {}
-	//char input = getchar();
-	//int money = 0;
-
 	//봄, 가을
 	if (cNum == 1) {
-
-
-
 		strcpy(fileName, "spring_autumn_suit.bin");
-
 		extradite(fileName);
-
-		//if (input == 'S' || input == 's') {
-		//	//구매 수량 입력 
-		//	printf("구매 하시려는 상의 모델을 입력하여 주세요.\n");
-		//	printf("상의 : ");
-		//	while (getchar() != '\n') {}
-		//	scanf("%[^\n]s", suitModel);
-
-		//	while (getchar() != '\n') {}
-		//	printf("수량 선택 : ");
-		//	scanf("%d", &quantity);// 숫자만 선택하도록
-
-		//	if (quantity > 0) {
-		//		suit_puchse_file(quantity, suitModel, springAutumnSuitFile);
-
-		//		while (1) {
-		//			printf("금액을 입금하여 주세요.\n");
-		//			while (getchar() != '\n') {}
-		//			scanf("%d", &money);
-		//			receiveNum = deposit_file(money, suitModel, springAutumnSuitFile);
-		//			if (receiveNum == FIRST_NUM) {
-		//				break;
-		//			}
-		//		}
-		//	}
-		//}
-		//else if (input == 'P' || input == 'p') {
-		//	printf("구매 하시려는 하의 모델을 입력하여 주세요.\n");
-		//	printf("상의 : ");
-		//	while (getchar() != '\n') {}
-		//	scanf("%[^\n]s", suitModel);
-
-		//	while (getchar() != '\n') {}
-		//	printf("수량 선택 : ");
-		//	scanf("%d", &quantity);// 숫자만 선택하도록
-
-		//	if (quantity > 0) {
-		//		suit_puchse_file(quantity, suitModel, springAutumnSuitFile);
-
-		//		while (1) {
-		//			printf("금액을 입금하여 주세요.\n");
-		//			while (getchar() != '\n') {}
-		//			scanf("%d", &money);
-		//			receiveNum = deposit_file(money, suitModel, springAutumnSuitFile);
-		//			if (receiveNum == FIRST_NUM) {
-		//				break;
-		//			}
-		//		}
-		//	}
-		//}
 	}
 	// 여름
 	else if (cNum == 2) {
-
-
+		strcpy(fileName, "summer_suit.bin");
+		extradite(fileName);
 	}
 	// 겨울
 	else if (cNum == 3) {
-
+		strcpy(fileName, "winter_suit.bin");
+		extradite(fileName);
 	}
-
-
-
-	//else if (input == 'N' || input == 'n') {
-	//	printf("이전화면으로 돌아갑니다.\n");
-	//}
-	//
-
-	//else
-	//	printf(WRONG_MENU);
 }
 
 
 void extradite(char fileName[])
 {
-
-
-	//char fileName[50] = { 0 };
 	int quantity = 0;
 	char suitModel[50];
 	int moneyBalance = 0;
@@ -185,11 +97,8 @@ void extradite(char fileName[])
 		printf("수량 선택 : ");
 		scanf("%d", &quantity);// 숫자만 선택하도록
 
-		if (quantity > 0) {
-
-			
+		if (quantity > 0) {		
 			suit_shirts_puchse_file(quantity, suitModel, fileName);
-
 			while (1) {
 				printf("금액을 입금하여 주세요.\n");
 				while (getchar() != '\n') {}
@@ -229,42 +138,9 @@ void extradite(char fileName[])
 	else if (input == 'N' || input == 'n') {
 		printf("이전화면으로 돌아갑니다.\n");
 	}
-
-
 	else
 		printf(WRONG_MENU);
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 관리자 전용 메뉴 
 // 진입시 아이디, 패스워드로 로그인 할 수 있도록 한다

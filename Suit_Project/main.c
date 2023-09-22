@@ -18,11 +18,11 @@ void main()
 	// 인트로 
 	// 제목 : 성인용 남성 정장구매 숍(쇼핑몰 로고)
 	set_cursor_type(NOCURSOR);
-	//font_color(YELLOW);
-	//showIntro();
-	//_getch();
+	font_color(YELLOW);
+	showIntro();
+	_getch();
 
-	//system("cls");
+	system("cls");
 	font_color(LIGHT_GRAY);
 	set_cursor_type(NORMAL_CURSOR);
 	system("mode con cols=75 lines=100");

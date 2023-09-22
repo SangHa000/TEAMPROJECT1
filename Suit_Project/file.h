@@ -36,12 +36,6 @@ typedef struct _SEASON {
 	CUSTOMER customer;	
 } SEASON;
 
-//const char springAutumnSuitFile[] = "D:\\work_c\\Suit_Project\\spring_autumn_suit.bin";
-//const char summerSuitFile[] = "D:\\work_c\\Suit_Project\\summer_suit.bin";
-//const char winterSuitFile[] = "D:\\work_c\\Suit_Project\\winter_suit.bin";
-//const char managementFile[] = "D:\\work_c\\Suit_Project\\management.bin";
-
-
 extern void suit_file_write(char mode, int len, SEASON season[]);
 extern void get_suit_data_spring_autumn();
 extern void get_suit_data_summer();
